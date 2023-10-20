@@ -1,40 +1,59 @@
 import React from 'react'
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid'; 
+import Grid from '@mui/material/Unstable_Grid2'; 
+import "../App.css";
 import { Typography,Box } from '@mui/material';
 import { AccessTime} from '@mui/icons-material';
 import Rating from '@mui/material/Rating';
-export const TourCard = () => {
+import { createTheme ,ThemeProvider} from '@mui/material';
+import IITour from './ITour';
+
+
+
+
+const theme = createTheme({
+  components: {
+    MuiTypography: {
+      variants: [
+        { 
+          props: { variant: 'body2' }, style: { fontSize: '11' }
+        }, { 
+          props: { variant: 'body1' }, style: { fontSize: '9' }
+        }
+      ],
+    },
+
+  },
+});
+export const TourCard = ({tour}:IITour, key:number) => {
   return (
          <Grid xs={3}>
-         <Paper elevation={20}  >
-            <img className='img' src="https://picsum.photos/200/300 " alt="NO PIC" />
-       <Box paddingX={1}>
-       <Typography variant="subtitle2" component="h2" >
-              Jesus is Lord
-          </Typography>
-          <Box 
-       sx={{
-        display: 'flex',
-        alignItems: 'center',
-        
-       }}>
-          <AccessTime sx={{width:12.5}}></AccessTime>
-         <Typography variant="body2" component="p" marginLeft={0.5}>
-                 5hours
-             </Typography>
-       </Box>
-       <Box 
-       sx={{
-        display: 'flex',
-        alignItems: 'center',
-        
-       }}>
-          <Rating name="read-only" value={4.5} readOnly precision={0.5} size="small" />
-        </Box>
+          <ThemeProvider theme={theme}> 
+            <Paper elevation={20}  >
+            <img className='img' src= {tour.image} alt="NO PIC" />
+            <Box paddingX={1}>
+              <Typography variant="subtitle2" component="h2" >  {tour.name} </Typography>
+              <Box   sx={{  display: 'flex', alignItems: 'center',}}>
+                    <AccessTime sx={{width:12.5}}></AccessTime>
+                    <Typography variant="body2" component="p" marginLeft={0.5} > 
+                        {tour.duration}hours
+                    </Typography>
+                  <Typography variant="body2" component="p" marginLeft={2} >
+                    ({tour.numberOfReviews} reviews)
+                  </Typography>
+            </Box>
+            <Box>
+              <Typography variant="h6" component="h3" marginTop={.5}  >
+              From C $    {tour.price}   
+              </Typography>
+            </Box>
+            <Box  sx={{display: 'flex',alignItems: 'center', }}>
+             <Rating name="read-only" value=   {tour.rating}readOnly precision={0.5} size="small" />
+            </Box>
        </Box>
 
          </Paper >
+         </ThemeProvider>
          </Grid>
   )
 }

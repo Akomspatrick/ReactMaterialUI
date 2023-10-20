@@ -1,21 +1,22 @@
-import  Container  from "@mui/material/Container";
-import { TourCard } from "./components/TourCard";
-import Grid from '@mui/material/Grid'; 
+import Home from "./pages/Home";
+import { BrowserRouter,Routes,Route } from "react-router-dom";  
+import SearchAppBar from "./components/SearchAppBar"
+import Tour from "./pages/Tour";
 function App() {
+
+
   return (
     // https://www.youtube.com/watch?v=o1chMISeTC0
-    <div className="App">
-    <Container>
-    <Grid container spacing={3}>
-      
-      <TourCard></TourCard>
-      <TourCard></TourCard>
-      <TourCard></TourCard>
-      <TourCard></TourCard>
-    </Grid>
-    </Container>
-    </div>
-  );
-}
+    //https://www.youtube.com/watch?v=fzxEECHnsvU
+    <BrowserRouter>
+      <SearchAppBar></SearchAppBar>
+     <Routes>
+        <Route path="/" element={<Home/>} />  
+        <Route path="/:id" element={<Tour/>} />  
+     </Routes>
+    </BrowserRouter>
 
+  )
+
+}
 export default App;
